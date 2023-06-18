@@ -1,5 +1,6 @@
 <?php include('./navbar_footer/navbar.php') ?>
 
+
 <div id="content" class="site-content">
     <div id="rev_slider_one_wrapper" class="rev_slider_wrapper fullscreen-container" data-alias="mask-showcase"
         data-source="gallery">
@@ -10,7 +11,7 @@
       $query = $conn->query("select * from slider") ; 
       if($query->num_rows > 0 ){
         while($row = $query -> fetch_assoc()){
-            $imageURL = $row["slide"] ; 
+            $imageURL = './assets/sliders/'.$row["slide"] ; 
             $title = $row["title"] ; 
             $content = $row["content"] ; 
 
@@ -86,7 +87,7 @@
                         <div class="features-image">
                             <a href="#">
                                 <span class="overlay flex-middle"><i class="ot-flaticon-add"></i></span>
-                                <img src="https://via.placeholder.com/750x921.png" alt="">
+                                <img src="./images/features/features.jpg" alt="">
                             </a>
                         </div>
                         <div class="features-content">
@@ -99,7 +100,7 @@
                         <div class="features-image">
                             <a href="#">
                                 <span class="overlay flex-middle"><i class="ot-flaticon-add"></i></span>
-                                <img src="https://via.placeholder.com/750x921.png" alt="">
+                                <img src="./images/features/features2.jpg" alt="">
                             </a>
                         </div>
                         <div class="features-content">
@@ -112,7 +113,7 @@
                         <div class="features-image">
                             <a href="#">
                                 <span class="overlay flex-middle"><i class="ot-flaticon-add"></i></span>
-                                <img src="https://via.placeholder.com/750x921.png" alt="">
+                                <img src="./images/features/features3.jpg" alt="">
                             </a>
                         </div>
                         <div class="features-content">

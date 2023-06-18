@@ -96,6 +96,9 @@ if (!isset($_SESSION['user'])) {
                             <li>
                                 <a href="devis.php">Gestion des devis</a>
                             </li>
+                            <li>
+                                <a href="HowItWorks.php">About US Details</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="active-page">
