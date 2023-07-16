@@ -17,31 +17,35 @@ if (!$conn) {
 
 if (isset($_POST['enregistrer_mail'])) {
 
- 
-    $title = $_POST["title"];
-    $content = $_POST["content"];
-    
+
+    $titre = $_POST["titre"];
+    $description = $_POST["description"];
+    $terms = $_POST["terms"];
+    $architect = $_POST["architect"];
+    $client = $_POST["client"];
+    $strategy = $_POST["strategy"];
+    $project_type = $_POST["project_type"];
+    $date = $_POST["date"];
+
 
     $filename = $_FILES["uploadfile"]["name"];
     $tempname = $_FILES["uploadfile"]["tmp_name"];
-    $folder = "../assets/sliders/" . $filename;
+    $folder = "../assets/portfolio/" . $filename;
 
 
 
 
-    echo $sql = "INSERT INTO `slider`(`slide`,`title`,`content`) VALUES ('$filename','$title','$content')";
+     $sql = "INSERT INTO `portfolio`(`titre`,`description`,`terms`,`architect`,`client`,`strategy`,`project_type`,`date`) VALUES ('$titre','$description','$terms','$architect','$client','$strategy','$project_type','$date')";
+    echo $sql2 ="INSERT INTO `portfolio_images`(`titre`,`image`)VALUES('$titre','$filename')"; 
+
     if (move_uploaded_file($tempname, $folder)) {
         echo "<h3>  Image uploaded successfully!</h3>";
     } else {
         echo "<h3>  Failed to upload image!</h3>";
     }
-    if (mysqli_query($conn, $sql)) {
-        echo ' <br/><div class="alert alert-custom alert-indicator-top indicator-success" role="alert">
-        <div class="alert-content">
-            <span class="alert-title">Success!</span>
-            <span class="alert-text">Paramétrage de base est mis à jour...</span>
-        </div>
-    </div>';
+    if (mysqli_query($conn, $sql) && mysqli_query($conn, $sql2)) {
+
+    echo '<SCRIPT LANGUAGE="JavaScript">document.location.href="realisations.php?ID='.$id.'&suc=1" </SCRIPT>';
 
 
     } else {
@@ -53,23 +57,37 @@ if (isset($_POST['enregistrer_mail'])) {
     }
 }
 
-$slider = "";
-$content = "";
-$title = "";
+$titre = "";
+$architect = "";
+$client = "";
+$strategy = "";
+$date = "";
+$description = "";
+$project_type = "";
+$terms = "";
 
 ?>
 
 <div class="app-content">
+    <?php if(isset($_GET['suc'])){ ?>
+    <?php if($_GET['suc']=='1'){ ?>
+    <br />
+    <div class="alert alert-custom alert-indicator-top indicator-success" role="alert">
+        <div class="alert-content">
+            <span class="alert-title">Success!</span>
+            <span class="alert-text">project est mis à jour...</span>
+        </div>
+    </div>
+    <?php } }?>
     <div class="content-wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
                     <div class="page-description">
-                        <h3>Portfolio Content</h3>
+                        <h3>Projects Content</h3>
                     </div>
                 </div>
             </div>
-
 
             <form class="row g-3 needs-validation" action="" method="POST" enctype="multipart/form-data">
 
@@ -77,53 +95,60 @@ $title = "";
 
                 <div class="col-md-3 position-relative mb-5">
                     <label for="validationTooltip02" class="form-label">Title</label>
-                    <input type="text" class="form-control" id="validationTooltip02" name="title" required>
+                    <input type="text" class="form-control" id="validationTooltip02" name="titre" required>
                     <div class="valid-tooltip">
                         Looks good!
                     </div>
                 </div>
                 <div class="col-md-3 position-relative mb-5">
                     <label for="validationTooltip02" class="form-label">Architect</label>
-                    <input type="text" class="form-control" id="validationTooltip02" name="title" required>
+                    <input type="text" class="form-control" id="validationTooltip02" name="architect" required>
                     <div class="valid-tooltip">
                         Looks good!
                     </div>
                 </div>
                 <div class="col-md-3 position-relative mb-5">
                     <label for="validationTooltip02" class="form-label">Client</label>
-                    <input type="text" class="form-control" id="validationTooltip02" name="title" required>
+                    <input type="text" class="form-control" id="validationTooltip02" name="client" required>
                     <div class="valid-tooltip">
                         Looks good!
                     </div>
                 </div>
                 <div class="col-md-3 position-relative mb-5">
                     <label for="validationTooltip02" class="form-label">Strategy</label>
-                    <input type="text" class="form-control" id="validationTooltip02" name="title" required>
+                    <input type="text" class="form-control" id="validationTooltip02" name="strategy" required>
+                    <div class="valid-tooltip">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="col-md-3 position-relative mb-5">
+                    <label for="validationTooltip02" class="form-label">Project Type</label>
+                    <input type="text" class="form-control" id="validationTooltip02" name="project_type" required>
                     <div class="valid-tooltip">
                         Looks good!
                     </div>
                 </div>
                 <div class="col-md-3 position-relative mb-5">
                     <label for="validationTooltip02" class="form-label">Date</label>
-                    <input type="date" class="form-control" id="validationTooltip02" name="title" required>
+                    <input type="date" class="form-control" id="validationTooltip02" name="date" required>
                     <div class="valid-tooltip">
                         Looks good!
                     </div>
                 </div>
                 <div class="col-md-3 position-relative mb-5">
                     <label for="validationTooltip02" class="form-label">Terms</label>
-                    <input type="text" class="form-control" id="validationTooltip02" name="title" required>
+                    <input type="text" class="form-control" id="validationTooltip02" name="terms" required>
                     <div class="valid-tooltip">
                         Looks good!
                     </div>
                 </div>
                 <div class="col-md-3 position-relative mb-5">
-                    <label for="validationTooltip02" class="form-label">Slide</label>
+                    <label for="validationTooltip02" class="form-label">Images</label>
                     <input type="file" class="form-control" id="validationTooltip02" name="uploadfile" id="uploadfile"
-                        required>
-                    <?php if (file_exists($slider)) { ?>
+                        multiple>
+                    <!-- <?php if (file_exists($slider)) { ?>
                     <img src="<?php echo $slider; ?>" style="width:50px">
-                    <?php } ?>
+                    <?php } ?> -->
                     <div class="valid-tooltip">
                         Looks good!
                     </div>
@@ -134,7 +159,7 @@ $title = "";
                         <div class="card">
 
                             <div class="card-body">
-                                <textarea id='makeMeSummernote' name='content' class="form-control"></textarea>
+                                <textarea id='makeMeSummernote' name='description' class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
@@ -158,28 +183,60 @@ $title = "";
                     <table class="table">
                         <thead class="table-dark">
                             <tr>
-                                <th scope="col">Titre</th>
-                                <th scope="col">Contenu</th>
-                                <th scope="col">Slider</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">description</th>
+                                <th scope="col">Architect</th>
+                                <th scope="col">Client</th>
+                                <th scope="col">Terms</th>
+                                <th scope="col">Strategy</th>
+                                <th scope="col">Project Type</th>
+                                <th scope="col">Date</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
 
-                            <?php 
-                                
+                            <?php
+
                             $req = "select * from portfolio";
                             $query = mysqli_query($conn, $req);
                             while ($enreg = mysqli_fetch_array($query)) {
                                 $id = $enreg["id"];
-                                $slider = $enreg["slide"];
-                                $content = $enreg["content"];
-                                $title = $enreg["title"];
-                            ?>
+                                $titre = $enreg["titre"];
+                                $description = $enreg["description"];
+                                $architect = $enreg["architect"];
+                                $terms = $enreg["terms"];
+                                $client = $enreg["client"];
+                                $strategy = $enreg["strategy"];
+                                $project_type = $enreg["project_type"];
+                                $date = $enreg["date"];
+                                ?>
                             <tr>
-                                <td><?php echo $title ?></td>
-                                <td><?php echo $content ?></td>
-                                <td><img src="../assets/sliders/<?php echo $slider ?>" style="width : 80%"></td>
+                                <td>
+                                    <?php echo $titre ?>
+                                </td>
+                                <td>
+                                    <?php echo $description ?>
+                                </td>
+                                <td>
+                                    <?php echo $architect ?>
+                                </td>
+                                <td>
+                                    <?php echo $terms ?>
+                                </td>
+                                <td>
+                                    <?php echo $client ?>
+                                </td>
+                                <td>
+                                    <?php echo $strategy ?>
+                                </td>
+                                <td>
+                                    <?php echo $project_type ?>
+                                </td>
+                                <td>
+                                    <?php echo $date ?>
+                                </td>
+                                <!-- <td><img src="../assets/sliders/<?php echo $slider ?>" style="width : 80%"></td> -->
                                 <td><button type="button" onclick="Supprimer('<?php echo $id; ?>')"
                                         class="btn btn-danger btn-burger"><i
                                             class="material-icons">delete_outline</i></button>
@@ -200,7 +257,7 @@ $title = "";
 function Supprimer(id) {
     if (confirm('Confirmez-vous cette action?')) {
 
-        document.location.href = "./pages_supp/delete_slider.php?ID=" + id;
+        document.location.href = "./pages_supp/delete_project.php?ID=" + id;
     }
 }
 
