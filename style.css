@@ -7258,7 +7258,7 @@ section {
     background-image: url(https://via.placeholder.com/1920x500.png);
 }
 .pheader-portfolio {
-    background-image: url(https://via.placeholder.com/1920x500.png);
+    background-image: url(./assets/images/pheader-portfolio.jpg) !important;
 }
 .pheader-portfolio-detail {
     background-image: url(https://via.placeholder.com/1920x500.png);
@@ -9460,6 +9460,7 @@ ul.style-default li:last-child, ol.style-default li:last-child {
   }
   .our-portfolio {
       padding-top: 80px;
+      background-color: white !important ;
   }
   .our-portfolio-slide {
       padding-top: 80px;
