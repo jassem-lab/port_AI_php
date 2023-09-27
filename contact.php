@@ -2,7 +2,7 @@
 
 <div id="content" class="site-content">
     <div class="page-header dtable text-center header-transparent page-header-contact"
-        style="background-image: url('./images/contact.jpg')">
+        style="background-image: url('./images/contact.jpg') ; margin-top: 0px; margin-bottom: 0px;">
         <div class="dcell">
             <div class="container">
                 <h1 class="page-title">Contact</h1>
@@ -19,8 +19,8 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 align-self-center mb-5 mb-lg-0">
-                <div class="contact-left">
-                    <h2>Get in Touch</h2>
+                <div class="contact-left mt-5">
+                    <h2 style="margin-top:50px">Get in Touch</h2>
                     <p class="font14">Your email address will not be published. Required fields are marked *</p>
                     <form action="contact.php" method="post" class="wpcf7">
                         <div class="main-form">

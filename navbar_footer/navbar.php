@@ -22,7 +22,7 @@ $mail2 = "";
 $mail3 = "";
 $adresse = "";
 $adresse2 = "";
-
+$linkedin = "";
 $facebook = "";
 $instagram = "";
 $twitter = "";
@@ -39,9 +39,11 @@ while ($enreg = mysqli_fetch_array($query)) {
     $tel1 = $enreg["tel1"];
     $tel2 = $enreg["tel2"];
     $adresse = $enreg["adresse"];
-
+    // $linkedin = $enreg["linkedin"];
+    $twitter = $enreg["twitter"];
     $facebook = $enreg["facebook"];
     $instagram = $enreg["instagram"];
+    $behance = $enreg["behance"];
 
 }
 
@@ -58,7 +60,6 @@ while ($enreg = mysqli_fetch_array($query)) {
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>Theratio</title>
     <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.png" />
-    <link rel="stylesheet" href="./css/bootstrap.min.css" />
     <link rel="stylesheet" href="./css/font-awesome.min.css" />
     <link rel="stylesheet" href="./css/flaticon.css" />
     <link rel="stylesheet" href="./css/owl.carousel.min.css" />
@@ -67,7 +68,10 @@ while ($enreg = mysqli_fetch_array($query)) {
     <link rel="stylesheet" href="./css/lightgallery.css" />
     <link rel="stylesheet" href="./css/woocommerce.css" />
     <link rel="stylesheet" href="./css/royal-preload.css" />
-
+ 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="./style.css" />
     <!-- REVOLUTION SLIDER CSS -->
     <link rel="stylesheet" type="text/css" href="./plugins/revolution/revolution/css/settings.css">
@@ -75,7 +79,7 @@ while ($enreg = mysqli_fetch_array($query)) {
     <link rel="stylesheet" type="text/css" href="./plugins/revolution/revolution/css/navigation.css">
 </head>
 
-<body class="bg-dark-theratio">
+<body >
     <div id="royal_preloader"></div>
     <div id="page" class="site">
         <header id="site-header" class="site-header header-static">
@@ -95,7 +99,8 @@ while ($enreg = mysqli_fetch_array($query)) {
                             <div class="col-lg-4 text-center">
                                 <div class="top-logo">
                                     <a href="index.html">
-                                        <img src="<?php echo $logo ?>" alt="">
+
+                                        <img src="./assets/images/<?php echo $logo ?>" alt="">
                                     </a>
                                 </div>
                             </div>
@@ -110,7 +115,7 @@ while ($enreg = mysqli_fetch_array($query)) {
                         </div>
                     </div>
                 </div>
-                <div class="main-header-s2">
+                <div class="main-header-s2" style="">
                     <div class="container">
                         <div class="octf-main-header">
                             <div class="octf-area-wrap">
@@ -133,22 +138,19 @@ while ($enreg = mysqli_fetch_array($query)) {
                                                         </li>
                                                         <li class=""><a href="portfolio.php">Portfolio</a>
                                                         </li>
-                                                        <li class=""><a href="blog.php">Blog</a>
-                                                        </li>
+                                                        <!-- <li class=""><a href="blog.php">Blog</a>
+                                                        </li> -->
                                                         <li class="menu-item-has-children"><a href="#">Services</a>
                                                             <ul class="sub-menu">
-                                                                <li><a href="servcies-detail-1.html">Design &
-                                                                        Planning</a></li>
-                                                                <li><a href="servcies-detail-2.html">Exterior Design</a>
-                                                                </li>
-                                                                <li><a href="servcies-detail-3.html">Custom
-                                                                        Solutions</a></li>
-                                                                <li><a href="servcies-detail-4.html">Furniture &
-                                                                        Decor</a></li>
-                                                                <li><a href="servcies-detail-5.html">Creating
-                                                                        Concept</a></li>
-                                                                <li><a href="servcies-detail-6.html">Author’s
-                                                                        Control</a></li>
+                                                                
+                                                                        <?php
+                                                                $req = "select * from service_type"; 
+                                                                $query = mysqli_query($conn, $req);
+                                                                while ($enreg = mysqli_fetch_array($query)) {
+                                                                    ?>
+                                                                    <li><a href="servicedetails.php?ID=<?php echo $enreg['id']; ?>"><?php echo $enreg['title'] ?></a></li>
+                                                                <?php } ?>
+                                                                ?>
                                                             </ul>
                                                         </li>
                                                         <li><a href="contact.php">Contact</a></li>
@@ -340,57 +342,8 @@ while ($enreg = mysqli_fetch_array($query)) {
                 <div class="side-panel-wrap">
                     <div class="the-logo">
                         <a href="index-html">
-                            <img src="<?php echo $logo ?>" alt="Theratio">
+                            <img src="./assets/images/<?php echo $logo ?>">
                         </a>
-                    </div>
-                    <div class="ot-heading">
-                        <h2 class="main-heading">Our Gallery</h2>
-                    </div>
-                    <div class="image-gallery">
-                        <div id="gallery-1" class="gallery galleryid-102 gallery-columns-3 gallery-size-thumbnail">
-                            <figure class="gallery-item">
-                                <div class="gallery-icon landscape">
-                                    <a href="https://via.placeholder.com/1440x930.png">
-                                        <img src="https://via.placeholder.com/150x150.png" class="" alt="">
-                                    </a>
-                                </div>
-                            </figure>
-                            <figure class="gallery-item">
-                                <div class="gallery-icon landscape">
-                                    <a href="https://via.placeholder.com/1440x930.png">
-                                        <img src="https://via.placeholder.com/150x150.png" class="" alt="">
-                                    </a>
-                                </div>
-                            </figure>
-                            <figure class="gallery-item">
-                                <div class="gallery-icon landscape">
-                                    <a href="https://via.placeholder.com/1440x930.png">
-                                        <img src="https://via.placeholder.com/150x150.png" class="" alt="">
-                                    </a>
-                                </div>
-                            </figure>
-                            <figure class="gallery-item">
-                                <div class="gallery-icon landscape">
-                                    <a href="https://via.placeholder.com/1440x930.png">
-                                        <img src="https://via.placeholder.com/150x150.png" class="" alt="">
-                                    </a>
-                                </div>
-                            </figure>
-                            <figure class="gallery-item">
-                                <div class="gallery-icon landscape">
-                                    <a href="https://via.placeholder.com/1440x930.png">
-                                        <img src="https://via.placeholder.com/150x150.png" class="" alt="">
-                                    </a>
-                                </div>
-                            </figure>
-                            <figure class="gallery-item">
-                                <div class="gallery-icon landscape">
-                                    <a href="https://via.placeholder.com/1440x930.png">
-                                        <img src="https://via.placeholder.com/150x150.png" class="" alt="">
-                                    </a>
-                                </div>
-                            </figure>
-                        </div>
                     </div>
                     <div class="ot-heading ">
                         <h2 class="main-heading">Contact Info</h2>

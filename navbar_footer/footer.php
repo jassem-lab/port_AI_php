@@ -9,11 +9,11 @@
                     <p>We provides a full range of interior design, architectural design.</p>
                     <div class="footer-social list-social">
                         <ul>
-                            <li><a href="<?php echo $facebook ?>" target="_self"><i class="fab fa-facebook-f"></i></a>
+                            <li><a href="https://<?php echo $facebook ?>" target="_self"><i class="fab fa-facebook-f"></i></a>
                             </li>
-                            <li><a href="<?php echo $twitter ?>" target="_self"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="https://<?php echo $twitter ?>" target="_self"><i class="fab fa-twitter"></i></a></li>
 
-                            <li><a href="<?php echo $instagram ?>" target="_self"><i class="fab fa-instagram"></i></a>
+                            <li><a href="https://<?php echo $instagram ?>" target="_self"><i class="fab fa-instagram"></i></a>
                             </li>
                         </ul>
                     </div>
@@ -70,7 +70,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-7 col-md-12 mb-4 mb-lg-0">
-                <p>Copyright © 2020 Theratio by <a class="text-light" href="#">ThemeModern</a>. All Rights Reserved.</p>
+                <p>Copyright © 2023 by <a class="text-light" href="https://jassemcodes.vercel.app/">Gaaloul Jassem</a>. All Rights Reserved.</p>
             </div>
             <div class="col-lg-5 col-md-12 align-self-center">
                 <ul class="icon-list-items inline-items justify-content-lg-end">

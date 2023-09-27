@@ -88,9 +88,11 @@ if (!isset($_SESSION['user'])) {
                                 <a href="slider.php">Slider</a>
                             </li>
                             <li>
-                                <a href="service.php">Services</a>
+                                <a href="services.php">Services</a>
                             </li>
-                          
+                            <li>
+                                <a href="projectType.php">Project type</a>
+                            </li>
                             <li>
                                 <a href="realisations.php">Réalisations</a>
                             </li>
@@ -102,8 +104,8 @@ if (!isset($_SESSION['user'])) {
                             </li>
                         </ul>
                     </li>
-                    <li class="active-page">
-                        <a href="index.html" class="active"><i
+                    <li class="">
+                        <a href="index.php" class="active"><i
                                 class="material-icons-two-tone">dashboard</i>Dashboard</a>
                     </li>
                     <li>

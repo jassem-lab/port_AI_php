@@ -28,17 +28,23 @@ if (isset($_POST['enregistrer_mail'])) {
     $behance = $_POST["behance"];
     $twitter = $_POST["twitter"];
 
+
+    $type1=pathinfo(basename($_FILES["uploadfile"]["name"]), PATHINFO_EXTENSION);
+    $file1=md5($_FILES["uploadfile"]["name"].time()).".".$type1;
     $filename = $_FILES["uploadfile"]["name"];
     $tempname = $_FILES["uploadfile"]["tmp_name"];
-    $folder = "../assets/images/" . $filename;
-
-
-
-
-    echo $sql = "UPDATE `parametres` SET `nom`='" . $nom . "',`mail`='" . $email . "',`url`='" . $url . "',`signature`='" . $signature . "'
-			,`tel1`='" . $tel1 . "',`tel2`='" . $tel2 . "',`logo`='" . $folder . "',
-			`adresse`='" . $adresse . "',`facebook`='" . $facebook . "',`instagram`='" . $instagram . "' ,`twitter`='" . $twitter . "' ,`behance`='" . $behance . "' 
-			 where id=1";
+    $folder = "../assets/images/" . $file1;
+    if($type1=="jpg" or $type1=="JPG" or $type1=="jpeg" or $type1=="JPEG" or $type1=="png" or $type1=="PNG" or $type1=="bmp" or $type1=="BMP" or $type1=="gif" or $type1=="GIF"){
+        echo $sql = "UPDATE `parametres` SET `nom`='" . $nom . "',`mail`='" . $email . "',`url`='" . $url . "',`signature`='" . $signature . "'
+        ,`tel1`='" . $tel1 . "',`tel2`='" . $tel2 . "',`logo`='" . $file1 . "',
+        `adresse`='" . $adresse . "',`facebook`='" . $facebook . "',`instagram`='" . $instagram . "' ,`twitter`='" . $twitter . "' ,`behance`='" . $behance . "' 
+         where id=1";
+    }else{
+        echo $sql = "UPDATE `parametres` SET `nom`='" . $nom . "',`mail`='" . $email . "',`url`='" . $url . "',`signature`='" . $signature . "'
+        ,`tel1`='" . $tel1 . "',`tel2`='" . $tel2 . "',
+        `adresse`='" . $adresse . "',`facebook`='" . $facebook . "',`instagram`='" . $instagram . "' ,`twitter`='" . $twitter . "' ,`behance`='" . $behance . "' 
+         where id=1";
+    }
     if (move_uploaded_file($tempname, $folder)) {
         echo "<h3>  Image uploaded successfully!</h3>";
     } else {
@@ -130,7 +136,8 @@ while ($enreg = mysqli_fetch_array($query)) {
                     <div class="input-group has-validation">
                         <span class="input-group-text" id="validationTooltipUsernamePrepend">@</span>
                         <input type="text" class="form-control" id="validationTooltipUsername"
-                            aria-describedby="validationTooltipUsernamePrepend" name="email" value="<?php echo $mail ?>">
+                            aria-describedby="validationTooltipUsernamePrepend" name="email"
+                            value="<?php echo $mail ?>">
                         <div class="invalid-tooltip">
                             Please choose a unique and valid address.
                         </div>
@@ -144,14 +151,16 @@ while ($enreg = mysqli_fetch_array($query)) {
 
                 <div class="col-md-3 position-relative mb-5">
                     <label for="validationTooltip02" class="form-label">Nom du site</label>
-                    <input type="text" class="form-control" id="validationTooltip02" name="nom" value="<?php echo $nom ?>">
+                    <input type="text" class="form-control" id="validationTooltip02" name="nom"
+                        value="<?php echo $nom ?>">
                     <div class="valid-tooltip">
                         Looks good!
                     </div>
                 </div>
                 <div class="col-md-3 position-relative mb-5">
                     <label for="validationTooltip02" class="form-label">signature</label>
-                    <input type="text" class="form-control" id="validationTooltip02" name="signature" value="<?php echo $signature ?>" >
+                    <input type="text" class="form-control" id="validationTooltip02" name="signature"
+                        value="<?php echo $signature ?>">
                     <div class="valid-tooltip">
                         Looks good!
                     </div>
@@ -159,10 +168,8 @@ while ($enreg = mysqli_fetch_array($query)) {
                 <div class="col-md-3 position-relative mb-5">
                     <label for="validationTooltip02" class="form-label">Logo</label>
                     <input type="file" class="form-control" id="validationTooltip02" name="uploadfile" id="uploadfile"
-                        value="<?php echo $logo ?>">
-                    <?php if (file_exists($logo)) { ?>
-                        <img src="<?php echo $logo; ?>" style="width:50px">
-                    <?php } ?>
+                        value="<?php echo $logo ?>" placeholder="value=" <?php echo $logo ?>">
+                    <img src="../assets/images/<?php echo $logo; ?>" style="width:50px ; background-color : gray ; ">         
                     <div class="valid-tooltip">
                         Looks good!
                     </div>
@@ -170,21 +177,24 @@ while ($enreg = mysqli_fetch_array($query)) {
 
                 <div class="col-md-3 position-relative mb-5">
                     <label for="validationTooltip03" class="form-label">Téléphone 1 </label>
-                    <input type="number" class="form-control" name="tel1" value="<?php echo $tel1 ?>"  id="validationTooltip03">
+                    <input type="number" class="form-control" name="tel1" value="<?php echo $tel1 ?>"
+                        id="validationTooltip03">
                     <div class="invalid-tooltip">
                         Please provide a valid phone number.
                     </div>
                 </div>
                 <div class="col-md-3 position-relative mb-5">
                     <label for="validationTooltip03" class="form-label">Téléphone 2 </label>
-                    <input type="number" class="form-control" name="tel2" value="<?php echo $tel2 ?>"  id="validationTooltip03">
+                    <input type="number" class="form-control" name="tel2" value="<?php echo $tel2 ?>"
+                        id="validationTooltip03">
                     <div class="invalid-tooltip">
                         Please provide a valid phone number.
                     </div>
                 </div>
                 <div class="col-md-3 position-relative mb-5">
                     <label for="validationTooltip03" class="form-label">Adresse</label>
-                    <input type="text" class="form-control" name="adresse" value="<?php echo $adresse ?>" id="validationTooltip03">
+                    <input type="text" class="form-control" name="adresse" value="<?php echo $adresse ?>"
+                        id="validationTooltip03">
                     <div class="invalid-tooltip">
                         Please provide a valid Adresse.
                     </div>
@@ -192,28 +202,32 @@ while ($enreg = mysqli_fetch_array($query)) {
 
                 <div class="col-md-3 position-relative mb-5">
                     <label for="validationTooltip05" class="form-label">Facebook</label>
-                    <input type="text" class="form-control" name="facebook" value="<?php echo $facebook ?>"  id="validationTooltip05">
+                    <input type="text" class="form-control" name="facebook" value="<?php echo $facebook ?>"
+                        id="validationTooltip05">
                     <div class="invalid-tooltip">
                         Please provide a valid zip.
                     </div>
                 </div>
                 <div class="col-md-3 position-relative mb-5">
                     <label for="validationTooltip05" class="form-label">Instagram</label>
-                    <input type="text" class="form-control" name="instagram" value="<?php echo $instagram ?>"  id="validationTooltip05">
+                    <input type="text" class="form-control" name="instagram" value="<?php echo $instagram ?>"
+                        id="validationTooltip05">
                     <div class="invalid-tooltip">
                         Please provide a valid zip.
                     </div>
                 </div>
                 <div class="col-md-3 position-relative mb-5">
                     <label for="validationTooltip05" class="form-label">Behance</label>
-                    <input type="text" class="form-control" name="behance" value="<?php echo $behance ?>"  id="validationTooltip05">
+                    <input type="text" class="form-control" name="behance" value="<?php echo $behance ?>"
+                        id="validationTooltip05">
                     <div class="invalid-tooltip">
                         Please provide a valid zip.
                     </div>
                 </div>
                 <div class="col-md-3 position-relative mb-5">
                     <label for="validationTooltip05" class="form-label">Twitter</label>
-                    <input type="text" class="form-control" name="twitter" value="<?php echo $twitter ?>"  id="validationTooltip05">
+                    <input type="text" class="form-control" name="twitter" value="<?php echo $twitter ?>"
+                        id="validationTooltip05">
                     <div class="invalid-tooltip">
                         Please provide a valid zip.
                     </div>

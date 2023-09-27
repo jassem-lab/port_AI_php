@@ -2328,6 +2328,7 @@ section.is-stuck {
   text-align: center;
   background: center center no-repeat;
   background-size: cover;
+  margin : none !important ; 
 }
 .page-header .breadcrumbs {
   margin-bottom: 0;
@@ -2383,6 +2384,7 @@ section.is-stuck {
 /*Header Left*/
 .header-vertical .page-header {
   height: 400px;
+  margin: 0px !important;
 }
 
 /* Dark scheme*/
@@ -2393,6 +2395,7 @@ section.is-stuck {
 @media (max-width: 1024px) {
   .page-header {
     height: 400px;
+    margin: 0px !important;
   }
 
   .page-title {
@@ -2402,6 +2405,7 @@ section.is-stuck {
 @media (max-width: 600px) {
   .page-header .page-title {
     font-size: 32px;
+    margin: 0px !important;
   }
 }
 /*--------------------------------------------------------------
@@ -7763,10 +7767,7 @@ section {
     border-color: #DDD;
 }
 .progress-studio {
-    background-image: url(https://via.placeholder.com/1920x505.png);
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
+
 }
 .main-color-stext {
     color: #A3A3A3;
@@ -8576,12 +8577,12 @@ ul.style-default li:last-child, ol.style-default li:last-child {
 .about-content-2 .ot-heading {
     margin: 0 -22px 0 0;
     padding: 75px 10px 22px 0;
-    background-image: url(https://via.placeholder.com/156x142.png);
+    background-image: url(../assets/images/logo.png) !important;
     background-position: 100% 12%;
     background-repeat: no-repeat;
 }
 .cta-2 {
-    background-image: url(https://via.placeholder.com/1920x1000.png);
+    background-image: url(./assets/images/bg2-home2.jpg );
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;

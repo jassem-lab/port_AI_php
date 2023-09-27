@@ -1,7 +1,4 @@
 <?php include('./navbar_footer/navbar.php') ?>
-
-
-
 <?php
 $servername = "localhost";
 $username = "root";
@@ -27,25 +24,28 @@ if (isset($_POST['enregistrer_mail'])) {
     $project_type = $_POST["project_type"];
     $date = $_POST["date"];
 
-
-    $filename = $_FILES["uploadfile"]["name"];
-    $tempname = $_FILES["uploadfile"]["tmp_name"];
-    $folder = "../assets/portfolio/" . $filename;
-
-
-
-
-     $sql = "INSERT INTO `portfolio`(`titre`,`description`,`terms`,`architect`,`client`,`strategy`,`project_type`,`date`) VALUES ('$titre','$description','$terms','$architect','$client','$strategy','$project_type','$date')";
-    echo $sql2 ="INSERT INTO `portfolio_images`(`titre`,`image`)VALUES('$titre','$filename')"; 
-
-    if (move_uploaded_file($tempname, $folder)) {
-        echo "<h3>  Image uploaded successfully!</h3>";
-    } else {
-        echo "<h3>  Failed to upload image!</h3>";
+    $sql = "INSERT INTO `portfolio`(`titre`,`description`,`terms`,`architect`,`client`,`strategy`,`project_type`,`date`) VALUES ('$titre','$description','$terms','$architect','$client','$strategy','$project_type','$date')";
+    $file = '';
+    $file_tmp = '';
+    $location = "../assets/portfolio/";
+    $data = '';
+    foreach ($_FILES['images']['name'] as $key => $val) {
+        $file = $_FILES['images']['name'][$key];
+        $file_tmp = $_FILES['images']['tmp_name'][$key];
+        move_uploaded_file($file_tmp, $location . $file);
+        $data .= $file . " ";
     }
-    if (mysqli_query($conn, $sql) && mysqli_query($conn, $sql2)) {
+    $query = "insert into portfolio_images (titre,image) values('$titre','$data')";
+    $fire = mysqli_query($conn, $query);
+    if ($fire) {
+        echo "Successful";
+    } else {
+        echo "Failed";
+    }
 
-    echo '<SCRIPT LANGUAGE="JavaScript">document.location.href="realisations.php?ID='.$id.'&suc=1" </SCRIPT>';
+    if (mysqli_query($conn, $sql)) {
+
+        echo '<SCRIPT LANGUAGE="JavaScript">document.location.href="realisations.php?ID=' . $id . '&suc=1" </SCRIPT>';
 
 
     } else {
@@ -69,16 +69,17 @@ $terms = "";
 ?>
 
 <div class="app-content">
-    <?php if(isset($_GET['suc'])){ ?>
-    <?php if($_GET['suc']=='1'){ ?>
-    <br />
-    <div class="alert alert-custom alert-indicator-top indicator-success" role="alert">
-        <div class="alert-content">
-            <span class="alert-title">Success!</span>
-            <span class="alert-text">project est mis à jour...</span>
-        </div>
-    </div>
-    <?php } }?>
+    <?php if (isset($_GET['suc'])) { ?>
+        <?php if ($_GET['suc'] == '1') { ?>
+            <br />
+            <div class="alert alert-custom alert-indicator-top indicator-success" role="alert">
+                <div class="alert-content">
+                    <span class="alert-title">Success!</span>
+                    <span class="alert-text">project est mis à jour...</span>
+                </div>
+            </div>
+        <?php }
+    } ?>
     <div class="content-wrapper">
         <div class="container-fluid">
             <div class="row">
@@ -123,10 +124,19 @@ $terms = "";
                 </div>
                 <div class="col-md-3 position-relative mb-5">
                     <label for="validationTooltip02" class="form-label">Project Type</label>
-                    <input type="text" class="form-control" id="validationTooltip02" name="project_type" required>
-                    <div class="valid-tooltip">
-                        Looks good!
-                    </div>
+                    <select class="form-control select2" name="project_type" id="project_type" required>
+                        <option value=""> Select a project Type </option>
+                        <?php
+                        $req = "select * from projecttype ";
+                        $query = mysqli_query($conn, $req);
+                        while ($enreg = mysqli_fetch_array($query)) {
+                            ?>
+                            <option value="<?php echo $enreg['title']; ?>" <?php if ($project_type == $enreg['title']) { ?> selected
+                                <?php } ?>>
+                                <?php echo $enreg['title']; ?>
+                            </option>
+                        <?php } ?>
+                    </select>
                 </div>
                 <div class="col-md-3 position-relative mb-5">
                     <label for="validationTooltip02" class="form-label">Date</label>
@@ -137,18 +147,16 @@ $terms = "";
                 </div>
                 <div class="col-md-3 position-relative mb-5">
                     <label for="validationTooltip02" class="form-label">Terms</label>
-                    <input type="text" class="form-control" id="validationTooltip02" name="terms" required>
+                    <input type="text" class="form-control" id="validationTooltip02" name="terms">
                     <div class="valid-tooltip">
                         Looks good!
                     </div>
                 </div>
                 <div class="col-md-3 position-relative mb-5">
                     <label for="validationTooltip02" class="form-label">Images</label>
-                    <input type="file" class="form-control" id="validationTooltip02" name="uploadfile" id="uploadfile"
+                    <input type="file" class="form-control" id="validationTooltip02" name="images[]" id="images"
                         multiple>
-                    <!-- <?php if (file_exists($slider)) { ?>
-                    <img src="<?php echo $slider; ?>" style="width:50px">
-                    <?php } ?> -->
+                  
                     <div class="valid-tooltip">
                         Looks good!
                     </div>
@@ -189,15 +197,14 @@ $terms = "";
                                 <th scope="col">Client</th>
                                 <th scope="col">Terms</th>
                                 <th scope="col">Strategy</th>
-                                <th scope="col">Project Type</th>
                                 <th scope="col">Date</th>
+                                <th scope="col">Images</th>
+                                <th scope="col">Project Type</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-
                             <?php
-
                             $req = "select * from portfolio";
                             $query = mysqli_query($conn, $req);
                             while ($enreg = mysqli_fetch_array($query)) {
@@ -211,37 +218,56 @@ $terms = "";
                                 $project_type = $enreg["project_type"];
                                 $date = $enreg["date"];
                                 ?>
-                            <tr>
-                                <td>
-                                    <?php echo $titre ?>
-                                </td>
-                                <td>
-                                    <?php echo $description ?>
-                                </td>
-                                <td>
-                                    <?php echo $architect ?>
-                                </td>
-                                <td>
-                                    <?php echo $terms ?>
-                                </td>
-                                <td>
-                                    <?php echo $client ?>
-                                </td>
-                                <td>
-                                    <?php echo $strategy ?>
-                                </td>
-                                <td>
-                                    <?php echo $project_type ?>
-                                </td>
-                                <td>
-                                    <?php echo $date ?>
-                                </td>
-                                <!-- <td><img src="../assets/sliders/<?php echo $slider ?>" style="width : 80%"></td> -->
-                                <td><button type="button" onclick="Supprimer('<?php echo $id; ?>')"
-                                        class="btn btn-danger btn-burger"><i
-                                            class="material-icons">delete_outline</i></button>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>
+                                        <?php echo $titre ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $description ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $architect ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $terms ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $client ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $strategy ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $date ?>
+                                    </td>
+                                    <td>
+                                        <?php
+                                        $i = "";
+                                        $query2 = "SELECT * FROM `portfolio_images` WHERE `titre` = '" . $enreg['titre'] . "' ";
+                                        $fire = mysqli_query($conn, $query2);
+                                        $data = mysqli_fetch_array($fire);
+                                        $res = $data['image'];
+                                        $res = explode(" ", $res);
+                                        $count = count($res) - 1;
+                                        for ($i = 0; $i < $count; ++$i) {
+                                            ?>
+                                            <img src="../assets/portfolio/<?= $res[$i] ?>" height="100px" width="100px" />
+                                            <?php
+                                        }
+                                        echo "<p style='color:green;font-size:12px'>Total " . $count . " images found.";
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <?php
+                                       echo $project_type ; 
+                                        ?>
+
+                                    </td>
+                                    <td><button type="button" onclick="Supprimer('<?php echo $id; ?>')"
+                                            class="btn btn-danger btn-burger"><i
+                                                class="material-icons">delete_outline</i></button>
+                                    </td>
+                                </tr>
                             <?php } ?>
 
                         </tbody>
@@ -254,23 +280,23 @@ $terms = "";
 
 
 <script>
-function Supprimer(id) {
-    if (confirm('Confirmez-vous cette action?')) {
+    function Supprimer(id) {
+        if (confirm('Confirmez-vous cette action?')) {
 
-        document.location.href = "./pages_supp/delete_project.php?ID=" + id;
+            document.location.href = "./pages_supp/delete_project.php?ID=" + id;
+        }
     }
-}
 
-function myFunction() {
-    alert("I am an alert box!");
-}
+    function myFunction() {
+        alert("I am an alert box!");
+    }
 </script>
 
 
 
 <script type="text/javascript">
-$('#makeMeSummernote').summernote({
-    height: 200,
-});
+    $('#makeMeSummernote').summernote({
+        height: 200,
+    });
 </script>
 <?php include('./navbar_footer/footer.php') ?>
