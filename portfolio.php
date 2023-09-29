@@ -1,8 +1,8 @@
 <?php include('./navbar_footer/navbar.php') ?>
 <?php
-$connect = mysqli_connect("localhost", "root", "", "majdoub");
+
 $tab_query = "SELECT * FROM portfolio ORDER BY project_type";
-$tab_result = mysqli_query($connect, $tab_query);
+$tab_result = mysqli_query($conn, $tab_query);
 $tab_menu = '';
 $tab_content = '';
 $i = 0;
@@ -24,7 +24,7 @@ while ($row = mysqli_fetch_array($tab_result)) {
   ';
     }
     $product_query = "SELECT * FROM portfolio WHERE project_type = '" . $row["project_type"] . "'"; 
-    $product_result = mysqli_query($connect, $product_query);
+    $product_result = mysqli_query($conn, $product_query);
     while ($sub_row = mysqli_fetch_array($product_result)) {
         $i = "0";
         $titre = $sub_row["titre"] ;
@@ -154,4 +154,4 @@ while ($row = mysqli_fetch_array($tab_result)) {
         </div>
     </div>
 </section> -->
-<?php include('./navbar_footer/footer.php') ?>
+<?php include('./navbar_footer/footer.php') ?>  

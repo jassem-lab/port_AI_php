@@ -109,7 +109,7 @@ while($row = mysqli_fetch_array($result))
             </div>
         </div>
     </div>  '; 
-                echo '<div class="footer-social list-social">
+                echo '<div class="footer-social list-social" style="margin-bottom : 100px">
                 <ul>
                     <li><a href="https://'.$facebook.'" target="_self"><i style="color : black" class="fab fa-facebook-f"></i></a></li>
                     <li><a href="https://'.$twitter.'" target="_self"><i style="color : black" class="fab fa-twitter"></i></a></li>

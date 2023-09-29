@@ -3,6 +3,49 @@ session_start();
 if (!isset($_SESSION['user'])) {
     header('location:../login.php');
 }
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "majdoub";
+
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+$mail = "";
+$url = "";
+$Signature = "";
+$nom = "";
+$logo = "";
+$tel1 = "";
+$tel2 = "";
+$tel3 = "";
+$mail1 = "";
+$mail2 = "";
+$mail3 = "";
+$adresse = "";
+$adresse2 = "";
+$linkedin = "";
+$facebook = "";
+$instagram = "";
+$twitter = "";
+$behance = "";
+
+$req = "select * from parametres where id = 1";
+$query = mysqli_query($conn, $req);
+while ($enreg = mysqli_fetch_array($query)) {
+    $mail = $enreg["mail"];
+    $url = $enreg["url"];
+    $signature = $enreg["signature"];
+    $nom = $enreg["nom"];
+    $logo = $enreg["logo"];
+    $tel1 = $enreg["tel1"];
+    $tel2 = $enreg["tel2"];
+    $adresse = $enreg["adresse"];
+    // $linkedin = $enreg["linkedin"];
+    $twitter = $enreg["twitter"];
+    $facebook = $enreg["facebook"];
+    $instagram = $enreg["instagram"];
+    $behance = $enreg["behance"];
+
+}
 
 ?>
 
@@ -44,8 +87,8 @@ if (!isset($_SESSION['user'])) {
     <link href="./assets/css/custom.css" rel="stylesheet">
     <link href="./assets/plugins/dropzone/min/dropzone.min.css" rel="stylesheet">
 
-    <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/neptune.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="./assets/images/neptune.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/<?php echo $logo ?>" />
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/<?php echo $logo ?>" />
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -61,8 +104,6 @@ if (!isset($_SESSION['user'])) {
             <div class="logo">
                 <a href="#" class="logo-icon"><span class="logo-text">Espace Privé</span></a>
                 <div class="sidebar-user-switcher user-activity-online">
-
-
 
                     <span class="user-info-text">Mohamed Majdoub<br></span>
 
@@ -105,25 +146,20 @@ if (!isset($_SESSION['user'])) {
                         </ul>
                     </li>
                     <li class="">
-                        <a href="index.php" class="active"><i
+                        <a href="dashboard.php" class="active"><i
                                 class="material-icons-two-tone">dashboard</i>Dashboard</a>
                     </li>
                     <li>
-                        <a href="todo.html"><i class="material-icons-two-tone">done</i>Todo</a>
+                        <a href="https:// "><i class="material-icons-two-tone">done</i>Visit Website</a>
                     </li>
                     <li>
                         <a href=""><i class="material-icons-two-tone">star</i>Pages<i
                                 class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
                         <ul class="sub-menu">
                             <li>
-                                <a href="pricing.html">Pricing</a>
+                                <a href="blog.php">Blog</a>
                             </li>
-                            <li>
-                                <a href="invoice.html">Invoice</a>
-                            </li>
-                            <li>
-                                <a href="settings.html">Settings</a>
-                            </li>
+                         
                         </ul>
                     </li>
 

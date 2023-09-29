@@ -7766,9 +7766,7 @@ section {
     background: #DDD;
     border-color: #DDD;
 }
-.progress-studio {
 
-}
 .main-color-stext {
     color: #A3A3A3;
     padding-top: 8px;
@@ -8395,7 +8393,6 @@ ul.style-default li:last-child, ol.style-default li:last-child {
     color: #9F9E9E;
 }
 .story-1 {
-    background-image: url(https://via.placeholder.com/1920x325.png);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -8413,9 +8410,16 @@ ul.style-default li:last-child, ol.style-default li:last-child {
 }
 .story-author {
     padding: 0 0 0 20px;
-    background-image: url(https://via.placeholder.com/1920x325.png);
     background-position: 87% 92%;
     background-repeat: no-repeat;
+}
+.storyy{
+  background: url(./assets/images/bg1-home1.jpg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-top: 90px;
+  padding-bottom: 90px;
 }
 .story-author img {
     display: inline-block;
